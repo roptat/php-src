@@ -1630,6 +1630,9 @@ PHPAPI zend_result _php_stream_copy_to_stream_ex(php_stream *src, php_stream *de
 	if (maxlen == PHP_STREAM_COPY_ALL) {
 		maxlen = 0;
 	}
+	
+	// If we are falling back, remove read bytes from the total size to copy
+	maxlen -= haveread;
 
 	if (php_stream_mmap_possible(src)) {
 		char *p;
